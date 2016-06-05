@@ -1,6 +1,6 @@
 {
   "name": "complex-deriv-fornberg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compute the derivative of a complex analytic function using the method of Fornberg",
   "main": "index.js",
   "author": {
