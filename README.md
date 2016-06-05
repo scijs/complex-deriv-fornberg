@@ -42,6 +42,12 @@ deriv(f, 5, 0, 0)
 
 ```
 
+## Installation
+
+```bash
+$ npm install complex-deriv-fornberg
+```
+
 ## API
 
 #### `require('deriv-complex')([output, ]f, n, a, b[, options[, status]])`
@@ -64,12 +70,6 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
   - `failed`: True if the maximum number of iterations was reached
   - `truncationError`: An array containing approximate bounds of the truncation error achieved for each component of the solution
   - `roundingError`: An array containing approximate bounds of the rounding error achieved for each component of the solution
-
-## Installation
-
-```bash
-$ npm install complex-deriv-fornberg
-```
 
 **Returns**: Returns the real and imaginary components of the derivatives in arrays, i.e. `[[re1, re2, ...], [im1, im2, ...]]`, also writing the arrays to `output`, if provided.
 
