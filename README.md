@@ -19,10 +19,12 @@ To compute the first five derivatives of `1 / (1 - z)` at `z = 0`:
 ```javascript
 var deriv = require('complex-deriv-fornberg');
 
-deriv(function (a, b) {
+function f(a, b) {
   var c = b * b + (1 - a) * (1 - a);
   return [(1 - a) / c, b / c];
-}, 5, 0, 0)
+}
+
+deriv(f, 5, 0, 0)
 
 // =>
 // [ [ 1.0000000000000138,
