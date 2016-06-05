@@ -59,7 +59,7 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
 - `n`: Number of derivatives to compute where 0 represents the value of the function and `n` represents the nth derivative. Maximum number is 100.
 - `a`: Real component of `z` at which to evaluate the derivatives
 - `b`: Imaginary component of `z` at which to evaluate the derivatives
-- `options`: Optional array of configuration parameters
+- `options`: Optional object of configuration parameters
   - `r` (default: `0.6580924658`): Initial radius at which to evaluate. For well-behaved functions, the computation should be insensitive to the initial radius to within about four orders of magnitude.
   - `maxIters` (default: `30`): Maximum number of iterations
   - `taylor`: (default: `false`): If false, output represents the derivatives of the function. If true, the output represents Taylor series coefficients, differing only in multiplication by a factorial.
