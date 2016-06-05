@@ -1,0 +1,38 @@
+{
+  "name": "complex-deriv-fornberg",
+  "version": "1.0.0",
+  "description": "Compute the derivative of a complex analytic function using the method of Fornberg",
+  "main": "index.js",
+  "author": {
+    "name": "Ricky Reusser",
+    "email": "rsreusser@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/scijs/complex-deriv-fornberg.git"
+  },
+  "scripts": {
+    "test": "semistandard && mocha"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "almost-equal": "^1.1.0",
+    "chai": "^3.5.0",
+    "complex.js": "^2.0.1",
+    "mocha": "^2.5.3",
+    "semistandard": "^8.0.0"
+  },
+  "dependencies": {
+    "complex-modulus": "^1.0.1",
+    "ndfft": "0.0.0",
+    "number-epsilon": "^1.0.2"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it",
+      "beforeEach"
+    ]
+  }
+}
