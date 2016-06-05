@@ -50,7 +50,7 @@ $ npm install complex-deriv-fornberg
 
 ## API
 
-#### `require('deriv-complex')([output, ]f, n, a, b[, options[, status]])`
+#### `require('complex-deriv-fornberg')([output, ]f, n, a, b[, options[, status]])`
 Compute the derivative of a complex analytic function `f` at `a + b * i`.
 
 **Parameters**:
