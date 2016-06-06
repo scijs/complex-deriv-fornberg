@@ -39,7 +39,34 @@ deriv(f, 5, 0, 0)
 //    -1.9409005869118293e-14,
 //    -1.3097221675086528e-13,
 //    7.683410164000554e-13 ] ]
+```
 
+To output additional information about the computation, provide an empty object as the `status` argument:
+
+```javascript
+var status = {};
+
+deriv(f, 5, 0, 0, {}, status)
+
+// status => 
+// { truncationError: 
+//   [ 3.1039630025864036e-13,
+//     3.1039375685463187e-13,
+//     6.207858181065558e-13,
+//     1.8624780843579008e-12,
+//     7.446002762584479e-12,
+//     3.726089802919438e-11 ],
+//  roundingError: 
+//   [ 1.776399993410336e-15,
+//     6.560675025011761e-15,
+//     4.846032081004469e-14,
+//     5.369270732187135e-13,
+//     7.932006423296532e-12,
+//     1.464740954531565e-10 ],
+//  degenerate: false,
+//  iterations: 7,
+//  finalRadius: 0.27076482018055015,
+// failed: false }
 ```
 
 ## Installation
