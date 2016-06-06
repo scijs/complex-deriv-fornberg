@@ -10,7 +10,7 @@ This module uses the method of [Fornberg](#references) to compute the derivative
 
 ## Restrictions
 
-It uses the coefficients themselves to control the truncation error, so the error will not be properly bounded for functions like low-order polynomials whose Taylor series coefficients are nearly zero. If the error cannot be bounded, `degenerate` flag will be set to true, and an answer will still be computed and returned but should be used with caution.
+The method uses the coefficients themselves to control the truncation error, so the error will not be properly bounded for functions like low-order polynomials whose Taylor series coefficients are nearly zero. If the error cannot be bounded, `degenerate` flag will be set to true, and an answer will still be computed and returned but should be used with caution.
 
 ## Example
 
