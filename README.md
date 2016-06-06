@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This module uses the method of [Fornberg](#references) to compute the derivatives (with error bounds) of a complex anaytic function. In essence, it uses a Fourier Transform to invert function values into the Taylor Series coefficients, from which computation of the derivative is then trivial.
+This module uses the method of [Fornberg](#references) to compute the derivatives (with error bounds) of a complex analytic function. In essence, it uses a Fourier Transform to invert function values into the Taylor Series coefficients, from which computation of the derivative is then trivial.
 
 ## Restrictions
 
@@ -103,7 +103,7 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
 ## Known Issues
 
 - The logic is carefully verified against the paper (see: `derivation/*.py`), but the error bounds seem not *always* strictly correct with about 1/100 evaluations losing as many as 1-2 digits of precision—which should be acceptable for most uses.
-- The logic and error in the neighborhood of pathologies like branch cuts or when the initial radius selection is very poor could be made more robust. The `degenerate` argument should be checked to see if the algorithm was able to bound the error successfully, and for repeated application, the `finalRadius` output may be fed back into the next iteration to reduce the ssearching necessary.
+- Could be more robust in the neighborhood of pathologies like branch cuts or when the initial radius selection is very poor. The `degenerate` argument should be checked to see if the algorithm was able to bound the error successfully, and for repeated application, the `finalRadius` output may be fed back into the next iteration to aid the radius search.
 
 ## References
 
