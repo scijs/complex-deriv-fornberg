@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This module uses the method of [Fornberg](#references) to compute the derivatives (with error bounds) of a complex analytic function. In essence, it uses a Fourier Transform to invert function values into the Taylor Series coefficients, from which computation of the derivative is then trivial.
+This module uses the method of [Fornberg](#references) to compute the derivatives of a complex analytic function along with error bounds. The method uses a Fourier Transform to invert function evaluations around a circle into Taylor series coefficients, uses Richardson Extrapolation to improve and bound the estimate, then multiplies by a factorial to compute the derivatives. Unlike real-valued finite differences, the method searches for a desirable radius and so is relatively insensitive to the initial radius.
 
 ## Restrictions
 
