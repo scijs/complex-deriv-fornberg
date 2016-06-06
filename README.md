@@ -100,6 +100,11 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
 
 **Returns**: Returns the real and imaginary components of the derivatives in arrays, i.e. `[[re1, re2, ...], [im1, im2, ...]]`, also writing the arrays to `output`, if provided.
 
+## Known Issues
+
+- The logic is carefully verified against the paper (see: `derivation/*.py`), but the error bounds seem not *always* strictly correct with about 1/100 evaluations losing as many as 1-2 digits of precision—which should be acceptable for most uses.
+- The logic and error in the neighborhood of pathologies like branch cuts or when the initial radius selection is very poor could be made more robust. The `degenerate` argument should be checked to see if the algorithm was able to bound the error successfully, and for repeated application, the `finalRadius` output may be fed back into the next iteration to reduce the ssearching necessary.
+
 ## References
 
 \[1\] Fornberg, B. (1981). [Numerical Differentiation of Analytic Functions](https://amath.colorado.edu/faculty/fornberg/Docs/ACM_81_1.pdf). ACM Transactions on Mathematical Software (TOMS), 7(4), 512–526. http://doi.org/10.1145/355972.355979

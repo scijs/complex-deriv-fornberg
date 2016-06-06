@@ -11,5 +11,4 @@ console.log(
   }, 5, 0, 0, {}, status)
 );
 
-console.log('status =', status)
-
+console.log('status =', status);

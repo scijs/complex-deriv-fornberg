@@ -31,7 +31,7 @@ describe('complex-deriv-fornberg', function () {
     });
   });
 
-  describe('sin(x / 1e-6)', function () {
+  describe('sin(x / 1e-3)', function () {
     var c = 1e-3;
 
     function f (out, a, b) {
