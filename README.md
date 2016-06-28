@@ -121,8 +121,8 @@ Ricky Reusser
 [npm-image]: https://badge.fury.io/js/complex-deriv-fornberg.svg
 [npm-url]: https://npmjs.org/package/complex-deriv-fornberg
 [travis-image]: https://travis-ci.org/scijs/complex-deriv-fornberg.svg?branch=master
-[travis-url]: https://travis-ci.org//complex-deriv-fornberg
+[travis-url]: https://travis-ci.org/scijs/complex-deriv-fornberg
 [daviddm-image]: https://david-dm.org/scijs/complex-deriv-fornberg.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org//complex-deriv-fornberg
+[daviddm-url]: https://david-dm.org/scijs/complex-deriv-fornberg
 [semistandard-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square
 [semistandard-url]: https://github.com/Flet/semistandard
