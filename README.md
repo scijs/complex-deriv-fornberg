@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This module uses the method of [Fornberg](#references) to compute the derivatives of a complex analytic function along with error bounds. The method uses a Fourier Transform to invert function evaluations around a circle into Taylor series coefficients, uses Richardson Extrapolation to improve and bound the estimate, then multiplies by a factorial to compute the derivatives. Unlike real-valued finite differences, the method searches for a desirable radius and so is relatively insensitive to the initial radius.
+This module uses the method of [Fornberg](#references) to compute the derivatives of a complex analytic function along with error bounds. The method uses a Fourier Transform to invert function evaluations around a circle into Taylor series coefficients, uses Richardson Extrapolation to improve and bound the estimate, then multiplies by a factorial to compute the derivatives. Unlike real-valued finite differences, the method searches for a desirable radius and so is reasonably insensitive to the initial radius—to within a number of orders of magnitude at least. For most cases, the default configuration is likely to succeed.
 
 ## Restrictions
 
@@ -90,6 +90,7 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
   - `r` (default: `0.6580924658`): Initial radius at which to evaluate. For well-behaved functions, the computation should be insensitive to the initial radius to within about four orders of magnitude.
   - `maxIters` (default: `30`): Maximum number of iterations
   - `taylor`: (default: `false`): If false, output represents the derivatives of the function. If true, the output represents Taylor series coefficients, differing only in multiplication by a factorial.
+  - `minDegenerateIterations`: (default: `maxIters - 5`): Minimum number of iterations before the solution may be deemed degenerate. A larger number allows the algorithm to correct a bad initial radius.
 - `status`: Optional object into which output information is written. Fields are:
   - `degenerate`: True if the algorithm was unable to bound the error
   - `iterations`: Number of iterations executed
@@ -102,8 +103,8 @@ Compute the derivative of a complex analytic function `f` at `a + b * i`.
 
 ## Known Issues
 
-- The logic is carefully verified against the paper (see: `derivation/*.py`), but the error bounds seem not *always* strictly correct with about 1/100 evaluations losing as many as 1-2 digits of precision—which should be acceptable for most uses.
-- Could be more robust in the neighborhood of pathologies like branch cuts or when the initial radius selection is very poor. The `degenerate` argument should be checked to see if the algorithm was able to bound the error successfully, and for repeated application, the `finalRadius` output may be fed back into the next iteration to aid the radius search.
+- The logic is carefully verified against the referenced paper (see: `derivation/*.py`), but the error bounds seem not *always* strictly obeyed with about 1/100 evaluations losing as many as 1-2 digits of precision—which should be acceptable for most uses.
+- Could be more robust in the neighborhood of pathologies like branch cuts. The `degenerate` argument should be checked to see if the algorithm was able to bound the error successfully, and for repeated application, the `finalRadius` output may be fed back into the next iteration to aid the radius search.
 
 ## References
 
