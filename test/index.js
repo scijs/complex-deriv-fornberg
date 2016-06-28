@@ -8,6 +8,7 @@ var Complex = require('complex.js');
 var cmod = require('complex-modulus');
 
 var status = {};
+var exhaustiveTests = true;
 
 describe('complex-deriv-fornberg', function () {
   describe('input format', function () {
@@ -71,16 +72,18 @@ describe('complex-deriv-fornberg', function () {
     }
 
     // Spiral outwards and try a *lot* of different values:
-    for (var rr = 1e-10, aarg = 0; rr < 0.1; rr *= 1.3, aarg++) {
-      (function (r, arg) {
-        var re = r * Math.cos(arg);
-        var im = r * Math.sin(arg);
-        it('at z = ' + re + ' + ' + im + ' * i', function () {
-          var ans = deriv(f, 3, re, im, {r: 2e-3}, status);
-          assert.isFalse(status.degenerate, 'is not degenerate');
-          assert.almostEqual(ans, analytical(3, re, im), status.truncationError, status.roundingError, 11);
-        });
-      }(rr, aarg));
+    if (exhaustiveTests) {
+      for (var rr = 1e-10, aarg = 0; rr < 0.1; rr *= 1.3, aarg++) {
+        (function (r, arg) {
+          var re = r * Math.cos(arg);
+          var im = r * Math.sin(arg);
+          it('at z = ' + re + ' + ' + im + ' * i', function () {
+            var ans = deriv(f, 3, re, im, {r: 2e-3}, status);
+            assert.isFalse(status.degenerate, 'is not degenerate');
+            assert.almostEqual(ans, analytical(3, re, im), status.truncationError, status.roundingError, 11);
+          });
+        }(rr, aarg));
+      }
     }
   });
 
@@ -124,15 +127,17 @@ describe('complex-deriv-fornberg', function () {
     }
 
     // Spiral outwards and try a *lot* of different values:
-    for (var rr = 1e-6, aarg = 0; rr < 1e7; rr *= 1.1, aarg++) {
-      (function (r, arg) {
-        var re = r * Math.cos(arg);
-        var im = r * Math.sin(arg);
-        it('at z = ' + re + ' + ' + im + ' * i', function () {
-          var ans = deriv(f, 3, re, im, {}, status);
-          assert.almostEqual(ans, analytical(3, re, im), status.truncationError, status.roundingError);
-        });
-      }(rr, aarg));
+    if (exhaustiveTests) {
+      for (var rr = 1e-6, aarg = 0; rr < 1e7; rr *= 1.1, aarg++) {
+        (function (r, arg) {
+          var re = r * Math.cos(arg);
+          var im = r * Math.sin(arg);
+          it('at z = ' + re + ' + ' + im + ' * i', function () {
+            var ans = deriv(f, 3, re, im, {}, status);
+            assert.almostEqual(ans, analytical(3, re, im), status.truncationError, status.roundingError);
+          });
+        }(rr, aarg));
+      }
     }
   });
 
@@ -178,6 +183,18 @@ describe('complex-deriv-fornberg', function () {
       return ans;
     }
 
+    it('at z = 0 with a large initial radius', function () {
+      var ans = deriv(f, 8, 0, 0, {r: 8000}, status);
+      assert.isFalse(status.degenerate, 'Is not degenerate');
+      assert.almostEqual(ans, analytical(8, 0, 0), status.truncationError, status.roundingError);
+    });
+
+    it('at z = 0 with a small initial radius', function () {
+      var ans = deriv(f, 8, 0, 0, {r: 1e-4}, status);
+      assert.isFalse(status.degenerate, 'Is not degenerate');
+      assert.almostEqual(ans, analytical(8, 0, 0), status.truncationError, status.roundingError);
+    });
+
     it('at z = 0', function () {
       var ans = deriv(f, 8, 0, 0, {}, status);
       assert.isFalse(status.degenerate, 'Is not degenerate');
@@ -185,15 +202,17 @@ describe('complex-deriv-fornberg', function () {
     });
 
     // Spiral outwards and try a *lot* of different values:
-    for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
-      (function (r, arg) {
-        var re = r * Math.cos(arg);
-        var im = r * Math.sin(arg);
-        it('at z = ' + re + ' + ' + im + ' * i', function () {
-          var ans = deriv(f, 8, re, im, {}, status);
-          assert.almostEqual(ans, analytical(8, re, im), status.truncationError, status.roundingError);
-        });
-      }(rr, aarg));
+    if (exhaustiveTests) {
+      for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
+        (function (r, arg) {
+          var re = r * Math.cos(arg);
+          var im = r * Math.sin(arg);
+          it('at z = ' + re + ' + ' + im + ' * i', function () {
+            var ans = deriv(f, 8, re, im, {}, status);
+            assert.almostEqual(ans, analytical(8, re, im), status.truncationError, status.roundingError);
+          });
+        }(rr, aarg));
+      }
     }
   });
 
@@ -223,15 +242,17 @@ describe('complex-deriv-fornberg', function () {
     });
 
     // Spiral outwards and try a *lot* of different values:
-    for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
-      (function (r, arg) {
-        var re = r * Math.cos(arg);
-        var im = r * Math.sin(arg);
-        it('at z = ' + re + ' + ' + im + ' * i', function () {
-          var ans = deriv(f, 8, re, im, {}, status);
-          assert.almostEqual(ans, analytical(8, re, im), status.truncationError, status.roundingError);
-        });
-      }(rr, aarg));
+    if (exhaustiveTests) {
+      for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
+        (function (r, arg) {
+          var re = r * Math.cos(arg);
+          var im = r * Math.sin(arg);
+          it('at z = ' + re + ' + ' + im + ' * i', function () {
+            var ans = deriv(f, 8, re, im, {}, status);
+            assert.almostEqual(ans, analytical(8, re, im), status.truncationError, status.roundingError);
+          });
+        }(rr, aarg));
+      }
     }
   });
 
@@ -338,6 +359,14 @@ describe('complex-deriv-fornberg', function () {
       }
     });
 
+    it('at z = 0 with a very large initial radius', function () {
+      assert.almostEqual(deriv(f, 2, 0, 0, {r: 1e4}, status), analytical(0, 0), status.truncationError, status.roundingError);
+    });
+
+    it('at z = 0 with a very small initial radius', function () {
+      assert.almostEqual(deriv(f, 2, 0, 0, {r: 1e-4}, status), analytical(0, 0), status.truncationError, status.roundingError);
+    });
+
     it('at z = 0', function () {
       assert.almostEqual(deriv(f, 2, 0, 0, null, status), analytical(0, 0), status.truncationError, status.roundingError);
     });
@@ -367,37 +396,41 @@ describe('complex-deriv-fornberg', function () {
     });
 
     // Spiral outwards and try a *lot* of different values:
-    for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
-      (function (r, arg) {
-        var re = r * Math.cos(arg);
-        var im = r * Math.sin(arg);
-        it('at z = ' + re + ' + ' + im + ' * i', function () {
-          assert.almostEqual(deriv(f, 2, re, im, {}, status), analytical(re, im), status.truncationError, status.roundingError, 50);
-          assert.isFalse(status.degenerate, 'Is not degenerate');
-        });
-      }(rr, aarg));
+    if (exhaustiveTests) {
+      for (var rr = 1e-6, aarg = 0; rr < 1e2; rr *= 1.1, aarg++) {
+        (function (r, arg) {
+          var re = r * Math.cos(arg);
+          var im = r * Math.sin(arg);
+          it('at z = ' + re + ' + ' + im + ' * i', function () {
+            assert.almostEqual(deriv(f, 2, re, im, {}, status), analytical(re, im), status.truncationError, status.roundingError, 50);
+            assert.isFalse(status.degenerate, 'Is not degenerate');
+          });
+        }(rr, aarg));
+      }
     }
 
-    it('performs well', function () {
-      var i;
-      var n = 10000;
-      for (i = 0; i < n; i++) {
-        deriv(f, 2, 0, 0);
-      }
-      var t1 = Date.now();
+    if (exhaustiveTests) {
+      it('performs well', function () {
+        var i;
+        var n = 10000;
+        for (i = 0; i < n; i++) {
+          deriv(f, 2, 0, 0);
+        }
+        var t1 = Date.now();
 
-      for (i = 0; i < n; i++) {
-        deriv(f, 3, 0, 0);
-      }
+        for (i = 0; i < n; i++) {
+          deriv(f, 3, 0, 0);
+        }
 
-      var t2 = Date.now();
-      var perEval = (t2 - t1) / n;
+        var t2 = Date.now();
+        var perEval = (t2 - t1) / n;
 
-      console.log('Total time for ' + n + ' evaluations:', (t2 - t1) + ' ms');
-      console.log('Avg time per evaluation', 1000 * perEval + ' µs');
+        console.log('Total time for ' + n + ' evaluations:', (t2 - t1) + ' ms');
+        console.log('Avg time per evaluation', 1000 * perEval + ' µs');
 
-      // No assertion here; just for reporting
-    });
+        // No assertion here; just for reporting
+      });
+    }
   });
 
   describe('log(z)', function () {

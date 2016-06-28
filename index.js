@@ -92,6 +92,7 @@ function convergenceIsPoor (z0r, z0i, r, f, m, br, bi) {
 function complexDeriv (out, f, n, a, b, options, status) {
   var m, i, rangeNum, dirChangeCnt, iter, maxIters, radiusGrowthFactor, isDegenerate, cp, crat, m1, m2, ef10, ef21, ef20;
   var cr, ci, circle, needsSmaller, prevNeedsSmaller, e1r, e1i, e2r, e2i, numSamples, bcr, bci, taylor, factorial, r;
+  var degenIters;
 
   // Local references, continuing with potential premature optimization (maybe a couple ms
   // faster than reallocating every time, but the scatter in the benchmark is a little high
@@ -126,6 +127,7 @@ function complexDeriv (out, f, n, a, b, options, status) {
   options = options || {};
   r = options.r === undefined ? 0.6580924658 : options.r;
   maxIters = options.maxIterations === undefined ? 30 : options.maxIterations;
+  degenIters = options.minDegenerateIterations === undefined ? (maxIters - 5) : options.minDegenerateIterations;
   taylor = options.taylor === undefined ? false : !!options.taylor;
 
   // Select the number of points to use based on Fornberg's heuristics:
@@ -242,7 +244,10 @@ function complexDeriv (out, f, n, a, b, options, status) {
       // degenerate, whether one way or the other, and just alternate directions instead
       // of trying to target a specific error bound (not ideal, but not a good reason to
       // fail catastrophically):
-      isDegenerate = m1 / m2 < 1e-8 || m2 / m1 < 1e-8;
+      //
+      // Note: only consider it degenerate if we've had a chance to steer the radius in
+      // the direction at least `degenIters` times:
+      isDegenerate = iter > degenIters && (m1 / m2 < 1e-8 || m2 / m1 < 1e-8);
     }
 
     if (isDegenerate) {
@@ -251,7 +256,13 @@ function complexDeriv (out, f, n, a, b, options, status) {
       needsSmaller = iter % 2 === 0;
     } else {
       // Otherwise check the progression and if false then perform a convergence check:
-      needsSmaller = m1 < m2 || convergenceIsPoor(a, b, r, f, m, fEvalr, fEvali);
+      //
+      // Ensure neither m1 nor m2 is NaN (but skip the string type comparison):
+      if (m1 !== m1 || m2 !== m2) { // eslint-disable-line no-self-compare
+        needsSmaller = true;
+      } else {
+        needsSmaller = m1 < m2 || convergenceIsPoor(a, b, r, f, m, fEvalr, fEvali);
+      }
     }
 
     if (iter > 0 && needsSmaller !== prevNeedsSmaller) {
